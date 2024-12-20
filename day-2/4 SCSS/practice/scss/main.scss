@@ -1,0 +1,123 @@
+@import './resets';
+@import './variables';
+
+// ----------------------- FUNCTION---------
+
+@function weight($weight-name)
+{
+    @return map-get($font-weights, $weight-name);
+}
+//After
+
+// $primary-color:black;
+// $accent-color:green;
+// $text-color:white;
+// //use of MAP(js)
+// $font-weights:(
+//     "regular" : 200 ,
+//     "medium" : 500,
+//     "bold" : 900    
+// );
+
+// --------MIXIN-----------------
+//simple mixin
+// @mixin flexCenter{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+ 
+//parameter mixin
+@mixin flexCenter($direction){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+// color
+@mixin theme($light-theme:true)
+{
+    @if $light-theme{
+        background :  lighten($primary-color,  100%);
+        color : darken($color: $text-color, $amount: 100%);
+    }
+}
+
+//mobile mixin
+@mixin mobile
+{
+    @media(max-width: 200px)
+    {
+        @content;
+    }
+}
+body{
+    background-color: $primary-color;
+    color: $text-color;
+    // font-weight: map-get($font-weights, bold );
+}
+
+//nesting
+
+.main{
+    //mixin
+
+    //simple mixin
+    // @include flexCenter;
+
+    //parameter mixin
+    @include flexCenter(row);
+
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    width: 80%;
+    margin : 0 auto ;
+
+    //before
+    // p{
+    //     font-weight: map-get($font-weights, bold );
+    // }
+
+    //after
+    #{&}_para1{
+        //  font-weight: map-get($font-weights, bold );
+        // also pass function
+        font-weight: weight(regular);
+
+
+        &:hover{
+            color:red;
+        }
+    }
+
+    #{&}_para2{
+       //extend same to same para 1 properties
+       @extend .main_para1;
+
+
+        &:hover{
+            color:yellow;
+        }
+    }
+
+    @include mobile{
+        flex-direction: column;
+    }
+}
+//before
+// :root{
+//     --primary-color: black;
+//     --accent-color: green;
+//     --text-color: white;
+// }
+
+// body {
+//   /* background: blue; */
+//   background: var(--primary-color);
+// }/*# sourceMappingURL=main.css.map */
+
+.light{
+    @include theme(false);
+}
