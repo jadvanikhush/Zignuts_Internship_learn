@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task-4_fibonacci_series</title>
+</head>
+
+<body>
+    <h1>Find the Fibonacci Series Till Number </h1>
+    <lable>Enter The Number:</lable>
+    <input id="input" type="number" placeholder="Number">
+    <button id="btn" onclick="FibonacciSeries()">Fibonacci Series</button>
+    <div id="result"></div>
+
+    <script>
+        function FibonacciSeries() {
+            const number = parseInt(document.getElementById("input").value);
+
+
+            if (isNaN(number) || number <= 0) {
+                alert('Please enter a positive integer for the number of steps.');
+                return;
+            }
+
+            let fibSeries = [];
+
+            if (number === 1) 
+            {
+                fibSeries = [0]; 
+            } 
+            else if (number === 2) 
+            {
+                fibSeries = [0, 1];
+            } 
+            else 
+            {
+                let fib1 = 0;
+                let fib2 = 1;
+                fibSeries = [fib1, fib2]; 
+
+                
+                for (let i = 2; i < number; i++) 
+                {
+                    let fib3 = fib1 + fib2; 
+                    fibSeries.push(fib3); 
+                    fib1 = fib2;
+                    fib2 = fib3; 
+                }
+            }
+
+            document.getElementById("result").innerHTML = `Fibonacci Series for ${number} terms: ${fibSeries.join(', ')}`;
+
+        }
+    </script>
+</body>
+
+</html>
